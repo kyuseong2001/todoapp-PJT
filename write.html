@@ -32,7 +32,12 @@
       </nav>
 
 
-      <form action="/add" method="POST"> <!-- 폼에있는속성은 2개반드시 있어야함 -->
+      <!-- 폼인픗에 입력한 데이터를 서버에 전달하는 방법 -->
+      <!-- post 요청으로 데이터를 서버에 전송하려면 바디파서라는 라이브러리를 설치해줘야한다. -->
+      <!-- post 요청으로 서버에 데이터 전송을 하려면 form데이터의 경우 인풋테그에 이름을 붙여야한다 -->
+      <!-- 폼에있는속성은 2개반드시 있어야함 -->
+      
+      <form action="/add" method="POST"> 
         <div class="form-group">
           <label>오늘의 할일</label>
           <input type="text" class="form-control" name="title">
