@@ -1,0 +1,57 @@
+
+
+git bash 설정방법
+
+USER@LAPTOP-A947JFFV MINGW64 ~
+$ git config --global user.name "mr cho"
+
+USER@LAPTOP-A947JFFV MINGW64 ~
+$ git config --global user.email "kyuseong2001@gmail.com"
+
+USER@LAPTOP-A947JFFV MINGW64 ~
+$ git config --list
+
+diff.astextplain.textconv=astextplain
+filter.lfs.clean=git-lfs clean -- %f
+filter.lfs.smudge=git-lfs smudge -- %f
+filter.lfs.process=git-lfs filter-process
+filter.lfs.required=true
+http.sslbackend=openssl
+http.sslcainfo=C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt
+core.autocrlf=true
+core.fscache=true
+core.symlinks=false
+pull.rebase=false
+credential.helper=manager-core
+credential.https://dev.azure.com.usehttppath=true
+init.defaultbranch=master
+user.name=mr cho
+user.email=kyuseong2001@gmail.com
+
+
+
+VSCODE TERMINAL에서 
+
+git init 맨처음 코드올릴때 
+git add . (.은 전부라는뜻) git add는 전체소스코드를 깃허브에 올려라하는 뜻임
+git status 는 현재 상태를 보여줘라
+git commit -m "first commit" 파일의 히스토리를 만든다
+히스토리를 만들어서 깃허브와 vs코드 코드를 연결해줘야한다
+git remote add origin https://github.com/kyuseong2001/todoapp-PJT.git
+연결고리가 생겼음
+연결고리가 생긴것을 어떻게 확인하는가?
+git remote -v
+
+연결 확인해주고 
+코드를 깃허브에 올려준다 아래가 중요함
+git push origin master
+
+
+다음에 업데이트해줄때는 add해서 업데이트하고, 히스토리 만들어주고, 업로드해주면됨
+git add . 코드업데이트
+git commit -m "202112072143" 히스토리만들어주고
+git push origin master 바로 깃허브에 업로드 해주면 됨
+
+
+
+
