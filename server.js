@@ -8,12 +8,25 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 app.use(express.urlencoded({extended: true})) 
+const MongoClient = require('mongodb').MongoClient;
 
+var db;
+MongoClient.connect('mongodb+srv://kyuseong2001:edward2021@@@cluster0.omy9o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useUnifiedTopology: true }, function (에러, client) {
+	if (에러) return console.log(에러)
+	db = client.db('todoapp');
 
-// 위2줄은 좀전에 설치한 라이브러리를 첨부해주세요
-app.listen(8080,function(){
+        db.collection('post').insertOne( {이름 : 'John', _id : 100} , function(에러, 결과){
+	    console.log('저장완료'); 
+	});
+
+	
+});
+
+app.listen(8080, function () {
     console.log('listening on 8080')
 });
+// 위2줄은 좀전에 설치한 라이브러리를 첨부해주세요
+
 //8080이라는 포트에서 열어주세요
 // 네트워크 통신을 하기 위한 구멍이 6만개있는데 
 // 나는 8080에서 사용하겠습니다.
@@ -29,9 +42,7 @@ app.listen(8080,function(){
 //서버끄는 방법 ctrl + c
 // 서버를 하나 만든 것임
 
-app.get('/beauty',function(요청,응답){
-    응답.send('뷰티 용품사이트입니다.')
-});
+
 
 // 서버를 자동으로 끄고 키게 하는 라이브러리 노드몬 설치
 // 터미널창에 npm install -g nodemon 
@@ -56,7 +67,8 @@ app.get('/write',function(요청,응답){
 
 app.post('/add', function(요청,응답){
     응답.send('전송완료');  
-    console.log(요청.body)
+    console.log(요청.body.title)
 });
 
 // 바디파서는 body 데이터의 해석을 할수있게 도와준다
+// 웹서비스의 기능을 만들고싶으면 1. ui를 만들고, 서버에서 원하는 대로 정보를 처리해주는 코딩을 하면 됨
