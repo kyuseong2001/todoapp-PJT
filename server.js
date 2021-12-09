@@ -1,17 +1,13 @@
-
-// 2강 21/12/02 두근두근 내 첫서버에서 GET 요청을 처리해보자
-
-
-// 1. 서버생성 
-// 서버를 오픈하기 위한 기본 문법
-const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
-app.use(express.urlencoded({extended: true})) 
+const express = require('express');
+
+const app = express();
+app.use(express.urlencoded({ extended: true }));
 const MongoClient = require('mongodb').MongoClient;
 
+
 var db;
-MongoClient.connect('mongodb+srv://kyuseong2001:edward2021@@@cluster0.omy9o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useUnifiedTopology: true }, function (에러, client) {
+MongoClient.connect('mongodb+srv://kyuseong2001:edward2021@todoapp.tmnhj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useUnifiedTopology: true }, function (에러, client) {
 	if (에러) return console.log(에러)
 	db = client.db('todoapp');
 
@@ -19,12 +15,18 @@ MongoClient.connect('mongodb+srv://kyuseong2001:edward2021@@@cluster0.omy9o.mong
 	    console.log('저장완료'); 
 	});
 
-	
+	app.listen(8080, function () {
+		console.log('listening on 8080')
+	});
 });
 
-app.listen(8080, function () {
-    console.log('listening on 8080')
-});
+
+
+
+
+
+
+
 // 위2줄은 좀전에 설치한 라이브러리를 첨부해주세요
 
 //8080이라는 포트에서 열어주세요
