@@ -4,6 +4,10 @@ const express = require('express');
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 const MongoClient = require('mongodb').MongoClient;
+app.set('view engine', 'ejs');
+
+
+
 
 
 var db;
@@ -27,6 +31,31 @@ MongoClient.connect('mongodb+srv://kyuseong2001:edward2021@todoapp.tmnhj.mongodb
 
 
 
+
+
+
+
+
+// 어떤사람이 /add 경로로 post요청을 하면
+// DB안에서 POST라는 콜렉션을 가져와서 인서트 원을 붙이면 내가 원하는 정보를 등록해주세요
+
+app.post('/add', function(요청, 응답){
+  응답.send('전송완료');
+    console.log(요청.body.date)
+    console.log(요청.body.title)
+
+  db.collection('post').insertOne( { 제목 : 요청.body.title, 날짜 : 요청.body.date } , function(){
+    console.log('저장완료')
+  });
+});
+
+
+
+
+
+
+
+
 // 위2줄은 좀전에 설치한 라이브러리를 첨부해주세요
 
 //8080이라는 포트에서 열어주세요
@@ -41,21 +70,8 @@ MongoClient.connect('mongodb+srv://kyuseong2001:edward2021@todoapp.tmnhj.mongodb
 // 누군가가 /pet으로 방문하면 pet관련된 안내문을 띄어줘자
 
 
-//서버끄는 방법 ctrl + c
-// 서버를 하나 만든 것임
 
-
-
-// 서버를 자동으로 끄고 키게 하는 라이브러리 노드몬 설치
-// 터미널창에 npm install -g nodemon 
-// 다음부터는 nodemon server.js 로만 치고 엔터치면 
-// 내용 수정되면 자동으로 서버를 끄고 키게 만들어 줌
-// 서버를 끄는 방법은 컨트롤 + c 누르면 됨
-
-
-//    '/' 는 홈페이지
 // 어떤사람이 /로 홈페이지를 접속했을때 index.html 사이로 보내주세요
-
 app.get('/',function(요청,응답){
     응답.sendFile(__dirname + '/index.html')
 });
@@ -64,13 +80,10 @@ app.get('/write',function(요청,응답){
     응답.sendFile(__dirname + '/write.html')
 });
 
-
-// 어떤사람이 /add 경로로 post요청을 하면 ?? 경로로 해주세요
-
-app.post('/add', function(요청,응답){
-    응답.send('전송완료');  
-    console.log(요청.body.title)
+app.get('/list',function(요청,응답){
+  응답.render('list.ejs');
 });
+
 
 // 바디파서는 body 데이터의 해석을 할수있게 도와준다
 // 웹서비스의 기능을 만들고싶으면 1. ui를 만들고, 서버에서 원하는 대로 정보를 처리해주는 코딩을 하면 됨
