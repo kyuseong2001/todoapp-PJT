@@ -15,24 +15,12 @@ MongoClient.connect('mongodb+srv://kyuseong2001:edward2021@todoapp.tmnhj.mongodb
 	if (에러) return console.log(에러)
 	db = client.db('todoapp');
 
-        db.collection('post').insertOne( {이름 : 'John', _id : 100} , function(에러, 결과){
-	    console.log('저장완료'); 
+  
 	});
 
 	app.listen(8080, function () {
 		console.log('listening on 8080')
 	});
-});
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -49,28 +37,6 @@ app.post('/add', function(요청, 응답){
   });
 });
 
-
-
-
-
-
-
-
-// 위2줄은 좀전에 설치한 라이브러리를 첨부해주세요
-
-//8080이라는 포트에서 열어주세요
-// 네트워크 통신을 하기 위한 구멍이 6만개있는데 
-// 나는 8080에서 사용하겠습니다.
-
-// 터미널 창에 node server.js 로 서버를 연다
-
-// 나는 뷰티페이지를 보고싶어서 get 요청을 한다
-// url에 /를 넣는방법은 get요청한다고 한다
-
-// 누군가가 /pet으로 방문하면 pet관련된 안내문을 띄어줘자
-
-
-
 // 어떤사람이 /로 홈페이지를 접속했을때 index.html 사이로 보내주세요
 app.get('/',function(요청,응답){
     응답.sendFile(__dirname + '/index.html')
@@ -80,10 +46,18 @@ app.get('/write',function(요청,응답){
     응답.sendFile(__dirname + '/write.html')
 });
 
-app.get('/list',function(요청,응답){
-  응답.render('list.ejs');
-});
 
+// db에 저장된 post라는 파일(컬렉션)안에 제목이 뭐인 데이터를 꺼내주세요
+// find()만하면 모든 데이터를 가져움
+// 누가 list 경로로 get요청을 하면 list.ejs 파일을 보여주세요
+
+app.get('/list',function(요청,응답){
+  db.collection('post').find().toArray(function(에러,결과){
+    console.log(결과);
+    응답.render('list.ejs',{posts : 결과});
+  });
+  // 함수밖에 결과를 쓰면 안나옴
+});
 
 // 바디파서는 body 데이터의 해석을 할수있게 도와준다
 // 웹서비스의 기능을 만들고싶으면 1. ui를 만들고, 서버에서 원하는 대로 정보를 처리해주는 코딩을 하면 됨
