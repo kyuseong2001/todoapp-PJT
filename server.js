@@ -61,9 +61,12 @@ app.post('/add', function(요청, 응답){
 
 
 
+//삭제 기능
 
-
-
+app.delete('/delete',function(요청,응답){
+  console.log(요청.body)
+});
+//요청.body에  담긴 게시물의 번호에 따라 db에서 게시물 삭제
 
 
 
