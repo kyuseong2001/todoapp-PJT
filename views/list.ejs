@@ -43,46 +43,41 @@
       에러가 뜨는 것은 좋은것이다. 에러가 안뜨는게 문제지 -->
 
 
+
       <ul class="list-group m-3">
-        <% for (var i = 0; i < posts.length ; i++) {%>
-          <li class="list-group-item disabled">
-            <h6> 할일제목 : <%= posts[i].제목 %> </h6> 
-            <h6> 마감일자 : <%= posts[i].날짜%> </h6> 
-            <button>Delete</button>
-          </li>
+        <% for (var i = 0; i < posts.length; i++){%>
+        <li class="list-group-item">
+          <p> 글번호 : <%= posts[i]._id %> </p> 
+          <h4> 할일 제목 : <%= posts[i].제목 %> </h4>
+          <p> 할일 마감날짜 : <%= posts[i].날짜 %> </p>
+          <button class="delete" data-id="<%= posts[i]._id %>">삭제</button>
+        </li>
         <% } %>
       </ul>
-        <!-- html에서는 delete 요청을 할수없다
-        그렇기 때문에 AJAX 로 DELETE 요청을 할 수있다
-        A-JAX는 서버와 통신할수있게 도와주는 자바스크립트 문법이다-->  
-
-        <!-- 새로고침없이 서버와 통신할수있다..  -->
 
 
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-        <!-- 
-          서버에 새로고침없이 /delete 경로로 delete요청을 할거에요
-          d one 요청이 성공하면 결과를 보여주세요 -->
-          <script> 
+
+
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+      <script> 
+
+          $('.delete').click(function(e){
+            var 글번호 = e.target.dataset.id;
             $.ajax({
               method : 'delete',
-              url : '요청할 경로',
-              data : '요청과 함께 보낼 데이터(삭제할 데이터)'
-            }).done(function(결과){})
-          </script>
+              url : '/delete', 
+              data : {_id : 글번호}
+            }).done(function(결과){
 
-          <script> 
-            $.ajax({
-              method : 'delete',
-              url : '/delete',
-              data : '123'
-            }).done(function(결과){})
-          </script>
+            });
+          });
+
+      </script>
 
 
 
-    <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--

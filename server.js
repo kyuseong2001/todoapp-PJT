@@ -61,14 +61,6 @@ app.post('/add', function(요청, 응답){
 
 
 
-//삭제 기능
-
-app.delete('/delete',function(요청,응답){
-  console.log(요청.body)
-});
-//요청.body에  담긴 게시물의 번호에 따라 db에서 게시물 삭제
-
-
 
 // 어떤사람이 /로 홈페이지를 접속했을때 index.html 사이로 보내주세요
 app.get('/',function(요청,응답){
@@ -94,3 +86,21 @@ app.get('/list',function(요청,응답){
 
 // 바디파서는 body 데이터의 해석을 할수있게 도와준다
 // 웹서비스의 기능을 만들고싶으면 1. ui를 만들고, 서버에서 원하는 대로 정보를 처리해주는 코딩을 하면 됨
+
+
+
+
+
+//삭제 기능
+
+app.delete('/delete',function(요청,응답){
+  console.log(요청.body);
+  요청.body._id = parseInt(요청.body._id);
+  db.collection('post').deleteOne(요청.body, function(에러,결과){
+    console.log('삭제완료');
+  })
+  
+});
+// 문자를 숫자로 변환하는 함수 parseInt
+//요청.body에  담긴 게시물의 번호를 가진 글을 DB에서 찾아서 삭제해주세요
+// 콘솔로그 에 한글표시할 때 ; 기입 필요
