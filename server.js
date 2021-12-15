@@ -98,9 +98,22 @@ app.delete('/delete',function(요청,응답){
   요청.body._id = parseInt(요청.body._id);
   db.collection('post').deleteOne(요청.body, function(에러,결과){
     console.log('삭제완료');
-  })
+    응답.status(200).send({message : '성공했습니다.'});
+  });
   
 });
+
+// 200을 보내주면 성공 400을 보내주면 실패
 // 문자를 숫자로 변환하는 함수 parseInt
 //요청.body에  담긴 게시물의 번호를 가진 글을 DB에서 찾아서 삭제해주세요
 // 콘솔로그 에 한글표시할 때 ; 기입 필요
+
+
+
+
+app.get('/detail/:id', function(요청, 응답){
+  db.collection('post').findOne({ _id : parseInt(요청.params.id) }, function (에러, 결과) {
+    응답.render('detail.ejs', {data  : 결과})
+  });
+});
+

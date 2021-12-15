@@ -48,6 +48,11 @@
         <% for (var i = 0; i < posts.length; i++){%>
         <li class="list-group-item">
           <p> 글번호 : <%= posts[i]._id %> </p> 
+
+          <a href="/detail/_id">할일 제목 : <%= posts[i].제목 %> </a>
+
+
+
           <h4> 할일 제목 : <%= posts[i].제목 %> </h4>
           <p> 할일 마감날짜 : <%= posts[i].날짜 %> </p>
           <button class="delete" data-id="<%= posts[i]._id %>">삭제</button>
@@ -65,11 +70,16 @@
 
           $('.delete').click(function(e){
             var 글번호 = e.target.dataset.id;
+            var 지금누른거 = $(this);
             $.ajax({
               method : 'delete',
               url : '/delete', 
               data : {_id : 글번호}
             }).done(function(결과){
+              console.log('성공했어요');
+              지금누른거.parent('li').fadeOut();
+            }).fail(function(xhr, textStatus, errorThrown){
+              console.log(xhr, textStatus, errorThrown);
 
             });
           });
